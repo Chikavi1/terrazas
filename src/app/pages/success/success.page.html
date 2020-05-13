@@ -1,0 +1,30 @@
+
+<ion-content>
+<div style="height: 25%;background: #018051;">
+  
+</div>
+<div style="margin-top: -8em;text-align: center;">
+
+  <ion-icon name="shield-checkmark-outline" style="color:white; zoom:4.0;"></ion-icon>
+  <h3 style="color:white;">¡Feliciades, Compra exitosa!</h3>
+</div>
+
+<div style="height:20%;background: #eff0f4;margin: 2em;border-radius: 1em;padding: .6em;"> 
+  <p style="text-align: center;"><b> Este es tu código de reservación. </b></p>
+  <p style="text-align: justify;">Si en caso de pedirte confirmación, muestra el codigo o apunta el numero de abajo</p>
+</div>
+<div style="display: flex; justify-content: center; text-align: center;margin: -1em;" >
+  <ngx-qrcode   style="zoom:1.5" [value]="createdCode"></ngx-qrcode>
+</div>
+<p style="text-align: center;margin-top: 0;" >{{createdCode}}</p>
+<div class="padding">
+  <p>Puedes checar tu codigo más adelante en <b>Mis reservas</b></p>
+</div>
+
+<ion-row>
+  <ion-col></ion-col>
+  <ion-col><ion-button shape="round"  color="success" (click)="goHome()"> Aceptar</ion-button></ion-col>
+  <ion-col></ion-col>
+</ion-row>
+
+</ion-content>

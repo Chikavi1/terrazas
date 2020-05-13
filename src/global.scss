@@ -24,3 +24,28 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+.ion-color-vibrant {
+    --ion-color-base: #3c40c6c7;
+    --ion-color-base-rgb: 255,255,0;
+    --ion-color-contrast: #000000;
+    --ion-color-contrast-rgb: 0,0,0;
+    --ion-color-shade: #3c40c6c7;
+    --ion-color-tint: #3c40c6c7;
+  }
+
+  .sc-ion-searchbar-ios {
+    border-radius: 0px !important;
+  }
+
+  .search-border{
+    --border-radius: .5em ;
+  }
+.padding{
+  padding: 1em;
+}
+  .ion-toolbar {
+    --background-color: transparent;
+    --ion-color-base: transparent !important;
+  }

@@ -1,0 +1,72 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="atras" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img src="../../../assets/search_available.svg" alt="" style="display: block;
+        margin: auto;
+        width: 50%;" >
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label>Selecciona el Horario</ion-label>
+          <ion-select [(ngModel)]="hour"  placeholder="Horario" value="brown" okText="Ok" cancelText="Cancelar">
+            <ion-select-option value="brown">10:00AM - 1:00PM</ion-select-option>
+            <ion-select-option value="blonde">1:00 - 2:00</ion-select-option>
+            <ion-select-option value="black">5:00 - 8:00</ion-select-option>
+            <ion-select-option value="red">8:00 - 11:00</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <ion-item >
+          <ion-label>Selecciona el día</ion-label>
+          <ion-datetime 
+              required  
+              doneText="listo" 
+              [(ngModel)]="day" 
+              display-format="DD/MM/YYYY" 
+              (ionChange)="ParseDataTimeToCardExpiration(this.expiration)" 
+              min="2020-05-11" 
+              [max]="yearLimitIonDateTime" cancelText="Cancelar" ></ion-datetime>
+          <!-- <ion-input type="text" name="exp" [(ngModel)]="exp"  ></ion-input> -->
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+    <p class="center-align padding">Haz click en la imagen para seleccionar.</p>
+    <ion-slides class="mini margin"  [options]="slideOpts">
+      <ion-slide class="slider-1 " (click)="showMotel()" *ngFor="let moteles of [1,1,1,1,1,1,1,1,1,1,1,1,1]" >
+        <div>
+          <img class="border-radius-img" src="https://a0.muscache.com/im/pictures/5ca54900-ce6e-4bb2-88f9-964e28c6e810.jpg?aki_policy=xx_large">
+          <small class="title-card">Titulo grande del motel</small><br>
+          <small  class="subtitle-card">7:00 am - 8:00 pm</small>
+        </div>
+      </ion-slide>
+    </ion-slides>
+
+  </ion-grid>    
+</ion-content>
+
+<ion-footer>
+  <ion-row>
+
+    <ion-col>
+      <ion-button class="btn-color" color="tertiary"  expand="full"  (click)="nextPage()" 
+      [disabled]="(hour == null || hour == '')   ||
+                  (day == null || day == '')
+                  ">Ver Disponibilidad</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
+

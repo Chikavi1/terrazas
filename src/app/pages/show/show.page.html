@@ -1,0 +1,47 @@
+<ion-content fullscreen >
+
+  <ion-fab vertical="top" horizontal="start"  slot="fixed" (click)="beforePage()">
+    <ion-fab-button color="motel" Borde="false">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <img src="https://a0.muscache.com/im/pictures/5ca54900-ce6e-4bb2-88f9-964e28c6e810.jpg?aki_policy=xx_large" alt="">
+  <ion-grid>
+    <ion-row > 
+      <ion-col>
+        <p class="padding-1">Titulo de la motelaxa jeje</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-card style="background: #ffc043e0;height: 20%;width: 100%;">
+        <ion-card-content>
+          Keep close to Nature's heart... and break clear away, once in awhile,
+          and climb a mountain or spend a week in the woods. Wash your spirit clean.
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+    <h3>Reviews</h3>
+    <ion-row>
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img src="https://ionicframework.com/docs/demos/api/thumbnail/thumbnail.svg">
+        </ion-thumbnail>
+        <ion-label>buen motel para echar pata jeje</ion-label>
+      </ion-item>
+      
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-row>
+    <ion-col>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="full" color="tertiary" (click)="NextPage()" 
+      [disabled]="Existlocation == false">Siguiente</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
+

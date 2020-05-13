@@ -1,0 +1,107 @@
+
+
+<ion-content [fullscreen]="true" >
+
+  <ion-grid style="background: #3c40c6c7;">
+    <ion-card 
+    style="color:white;border-radius:1em;margin-top:2em;margin-bottom:2em; padding: 1.4em;height:11em; background-image: url('https://raw.githubusercontent.com/muhammederdem/vue-interactive-paycard/master/src/assets/images/23.jpeg');">
+   
+    <ion-row>
+      <ion-col size="10">
+        <h3>{{ numero || '**** **** **** ****' }} </h3>
+      </ion-col>
+      <ion-col size="2">
+        <div *ngIf="logoimg === 'MasterCard'">
+          <img  width="60" src="https://raw.githubusercontent.com/muhammederdem/vue-interactive-paycard/master/src/assets/images/mastercard.png" >
+        </div>
+        <div *ngIf="logoimg === 'Visa'">
+          <img  width="60" src="https://raw.githubusercontent.com/muhammederdem/vue-interactive-paycard/master/src/assets/images/visa.png" >
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="8">
+        <p><b>Titular</b></p>
+        <P>{{ titular  }}</P>
+      </ion-col>
+      <ion-col size="4">
+        <p><b>Exp</b></p>
+        <P>{{ card_expiration || '2/2023' }}</P>
+      </ion-col>
+    </ion-row>
+  
+  </ion-card>
+  
+  </ion-grid>
+  
+  
+  <ion-list>
+    <ion-item>
+      <ion-icon slot="start" name="moon"></ion-icon>
+      <ion-label>Modo Oscuro</ion-label>
+      <ion-toggle slot="end" [ngModel]="darkMode" (ionChange)="cambio()"></ion-toggle>
+    </ion-item>
+  </ion-list>
+  
+  
+  
+    <ion-grid style="padding:1.5em !important;">
+      <ion-item >
+        <ion-label position="floating">Número de tarjeta</ion-label>
+        <ion-input  
+         type="text" 
+         name="numero" 
+         maxLength="19"
+         [(ngModel)]="numero" 
+         required  
+         (ionChange)="GetCardType(this.numero)" ></ion-input>
+      </ion-item>
+      <ion-item >
+        <ion-label position="floating" >Titular</ion-label>
+        <ion-input  type="text" name="titular" [(ngModel)]="titular"  ></ion-input>
+      </ion-item>
+  </ion-grid>
+  
+  <ion-grid>
+     
+    <ion-row>
+      <ion-col size="8">
+        <ion-item >
+          <ion-label position="floating">Expiracion</ion-label>
+          <ion-datetime 
+              required  
+              doneText="listo" 
+              [(ngModel)]="expiration" 
+              display-format="MM/YYYY" 
+              (ionChange)="ParseDataTimeToCardExpiration(this.expiration)" 
+              min="2020-05-04" 
+              [max]="yearLimitIonDateTime" cancelText="Cancelar" ></ion-datetime>
+          <!-- <ion-input type="text" name="exp" [(ngModel)]="exp"  ></ion-input> -->
+        </ion-item>
+      </ion-col>
+      <ion-col size="4">
+        <ion-item >
+          <ion-label position="floating">CVV</ion-label>
+          <ion-input required  type="number" name="exp" [(ngModel)]="cvc"  ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+  
+  
+  </ion-content>
+  <ion-footer>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="full" fill="clear" color="danger" (click)="beforePage()" >Cancelar</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="full" color="success" (click)="payWithStripe()" 
+        [disabled]="(numero == null || numero == '')   || 
+                    (titular == null || titular == '') ||
+                    (expiration == null || expiration == '')  ||
+                    (cvc == null || cvc == '')">Pagar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-footer>

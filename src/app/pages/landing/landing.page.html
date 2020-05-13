@@ -1,0 +1,40 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h3 class="ion-text-center">Bienvenido</h3>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      
+      <ion-col  item-center>
+        <img src="../../../assets/location.svg" alt="" style="display: block;
+        margin: auto;
+        width: 55%;" >
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+    <h3 class="ion-text-center">¿Donde quieres ver moteles?</h3>
+ 
+    
+  <ion-searchbar animated placeholder="Ciudad"  class="padding-2" (ionChange)="checkCity($event)" [ngModel]="location"></ion-searchbar>
+  <ion-button expand="full" fill="outline" color="light" size="large" (click)="getLocation()" >
+    <ion-icon slot="start" name="locate-outline" color="primary"></ion-icon>
+    <span  style="color:#17202F;font-size: 0.7em !important;">Usar ubicacion Actual</span>
+  </ion-button>
+
+</ion-content>
+
+<ion-footer>
+  <ion-row>
+    <ion-col>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="full" color="tertiary" (click)="NextPage()" 
+      [disabled]="Existlocation == false">Siguiente</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
