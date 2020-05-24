@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ComponentsModule } from './components/components.module';
 import { Stripe } from '@ionic-native/stripe/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 
 
@@ -27,6 +28,7 @@ import { Stripe } from '@ionic-native/stripe/ngx';
     StatusBar,
     SplashScreen,
     Stripe,
+    Geolocation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

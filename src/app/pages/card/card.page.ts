@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Directive, HostListener, ElementRef } from '@angular/core';
 import { Stripe } from '@ionic-native/stripe/ngx';
 import * as moment from 'moment';
 import { isValid } from 'cc-validate';
-import { DataService } from '../../services/data.service';
 import { NavController } from '@ionic/angular';
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -12,6 +12,7 @@ import { NavController } from '@ionic/angular';
 })
 
 export class CardPage implements OnInit {
+  
 
   paymentAmount:string = '3.33';
   currency:string= 'USD';
@@ -33,27 +34,44 @@ export class CardPage implements OnInit {
 
   logoimg = null;
 
-  darkMode: boolean =false;
+  data:any
 
   constructor(
     private stripe:Stripe,
-    private dataService: DataService,
-    private navCtrl: NavController) {
+    private navCtrl: NavController,
+    private route: ActivatedRoute) {
     this.yearLimitIonDateTime = moment().year()+8;
-    
-  }
-  ngOnInit(){
-    this.dataService.getPosts().subscribe(posts => {
-      if(posts.status == "Success"){
-        console.log("Compra Satisfecha");
-      }
+    this.route.queryParams.subscribe(params =>{
+      this.data = params;
+      console.log(this.data);
     });
   }
-
-  cambio(){
-    this.darkMode = !this.darkMode;
-      document.body.classList.toggle('dark')
+  ngOnInit(){
+    
   }
+
+  onEvent(event: KeyboardEvent,number) { 
+    let result: any = isValid(number);
+    if(result.isValid){
+      this.logoimg = result.cardType;
+      console.log(this.logoimg);
+    }
+    const input = event.target as HTMLInputElement;
+
+    let trimmed = input.value.replace(/\s+/g, '');
+    if (trimmed.length > 16) {
+      trimmed = trimmed.substr(0, 16);
+    }
+
+    let numbers = [];
+    for (let i = 0; i < trimmed.length; i += 4) {
+      numbers.push(trimmed.substr(i, 4));
+    }
+
+    input.value = numbers.join(' ');
+
+  }
+
 
    GetCardType(number){
     let result: any = isValid(number);
@@ -70,12 +88,22 @@ export class CardPage implements OnInit {
  }
 
  beforePage(){
-   this.navCtrl.navigateBack('/available');
- }
+  const extras: NavigationExtras = {
+    queryParams:{
+      id: 1,
+      name: this.data.name,
+      price: this.data.price
+    }
+  }
+  this.navCtrl.navigateBack(['/available'],extras);
+}
 
  nextPage(){
    this.navCtrl.navigateForward('/success');
  }
+
+ 
+ 
   payWithStripe() {
     this.nextPage();
 
@@ -97,5 +125,6 @@ export class CardPage implements OnInit {
   //     })
   //     .catch(error => console.error(error));
    }
+   
 
 }

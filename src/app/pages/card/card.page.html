@@ -4,7 +4,7 @@
 
   <ion-grid style="background: #3c40c6c7;">
     <ion-card 
-    style="color:white;border-radius:1em;margin-top:2em;margin-bottom:2em; padding: 1.4em;height:11em; background-image: url('https://raw.githubusercontent.com/muhammederdem/vue-interactive-paycard/master/src/assets/images/23.jpeg');">
+    style="color:white;border-radius:1em;margin-top:2em;margin-bottom:2em; padding: 1.4em;height:14em; background-image: url('https://raw.githubusercontent.com/muhammederdem/vue-interactive-paycard/master/src/assets/images/23.jpeg');">
    
     <ion-row>
       <ion-col size="10">
@@ -22,7 +22,7 @@
     <ion-row>
       <ion-col size="8">
         <p><b>Titular</b></p>
-        <P>{{ titular  }}</P>
+        <P><b>{{ titular  }}</b></P>
       </ion-col>
       <ion-col size="4">
         <p><b>Exp</b></p>
@@ -33,32 +33,24 @@
   </ion-card>
   
   </ion-grid>
-  
-  
-  <ion-list>
-    <ion-item>
-      <ion-icon slot="start" name="moon"></ion-icon>
-      <ion-label>Modo Oscuro</ion-label>
-      <ion-toggle slot="end" [ngModel]="darkMode" (ionChange)="cambio()"></ion-toggle>
-    </ion-item>
-  </ion-list>
-  
-  
+   
+  {{data.datos}} {{data.data}}
   
     <ion-grid style="padding:1.5em !important;">
       <ion-item >
         <ion-label position="floating">Número de tarjeta</ion-label>
         <ion-input  
-         type="text" 
+        type="tel"
          name="numero" 
          maxLength="19"
          [(ngModel)]="numero" 
          required  
-         (ionChange)="GetCardType(this.numero)" ></ion-input>
+         (ionChange)="onEvent($event,this.numero)" 
+         credit-card></ion-input>
       </ion-item>
       <ion-item >
         <ion-label position="floating" >Titular</ion-label>
-        <ion-input  type="text" name="titular" [(ngModel)]="titular"  ></ion-input>
+        <ion-input  type="text" name="titular" [(ngModel)]="titular" (ngModelChange)="titular = $event.toUpperCase()" ></ion-input>
       </ion-item>
   </ion-grid>
   
@@ -82,7 +74,7 @@
       <ion-col size="4">
         <ion-item >
           <ion-label position="floating">CVV</ion-label>
-          <ion-input required  type="number" name="exp" [(ngModel)]="cvc"  ></ion-input>
+          <ion-input required  type="tel" maxLength="4" name="exp" [(ngModel)]="cvc"  ></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>

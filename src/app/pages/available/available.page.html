@@ -1,71 +1,62 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button text="atras" defaultHref="/"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<ion-content fullscreen>
+  <ion-fab vertical="top" horizontal="start"  slot="fixed" (click)="beforePage()">
+    <ion-fab-button color="motel" Borde="false">
+      <ion-icon name="chevron-back-outline" style="color:#f8d100;"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <img src="https://images.unsplash.com/photo-1544984243-ec57ea16fe25?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" class="triangulo" style="margin-top: -5.5em;">
 
-<ion-content>
-  <img src="../../../assets/search_available.svg" alt="" style="display: block;
+
+  <img src="../../../assets/booking.svg" alt="" style="display: block;
         margin: auto;
         width: 50%;" >
 
   <ion-grid>
+    <h3 class="ion-text-center">{{ data.name}}</h3>
+    
     <ion-row>
-      <ion-col>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12">
-        <ion-item>
-          <ion-label>Selecciona el Horario</ion-label>
-          <ion-select [(ngModel)]="hour"  placeholder="Horario" value="brown" okText="Ok" cancelText="Cancelar">
-            <ion-select-option value="brown">10:00AM - 1:00PM</ion-select-option>
-            <ion-select-option value="blonde">1:00 - 2:00</ion-select-option>
-            <ion-select-option value="black">5:00 - 8:00</ion-select-option>
-            <ion-select-option value="red">8:00 - 11:00</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
-      <ion-col size="12">
+      <ion-col size="12" >
         <ion-item >
           <ion-label>Selecciona el día</ion-label>
           <ion-datetime 
               required  
               doneText="listo" 
               [(ngModel)]="day" 
-              display-format="DD/MM/YYYY" 
-              (ionChange)="ParseDataTimeToCardExpiration(this.expiration)" 
+              
+              (ionChange)="ParseDataTimeToCardExpiration(this.day)" 
               min="2020-05-11" 
+              displayFormat="DDD.DD MMM, YYYY"
+              monthShortNames="Enero, Febreo, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
               [max]="yearLimitIonDateTime" cancelText="Cancelar" ></ion-datetime>
-          <!-- <ion-input type="text" name="exp" [(ngModel)]="exp"  ></ion-input> -->
         </ion-item>
 
       </ion-col>
     </ion-row>
-    <p class="center-align padding">Haz click en la imagen para seleccionar.</p>
+    <h1 class="ion-text-center" style="color:green;">$ {{ data.price }}</h1>
+    <!-- <p class="center-align padding">Haz click en la imagen para seleccionar.</p>
     <ion-slides class="mini margin"  [options]="slideOpts">
-      <ion-slide class="slider-1 " (click)="showMotel()" *ngFor="let moteles of [1,1,1,1,1,1,1,1,1,1,1,1,1]" >
-        <div>
-          <img class="border-radius-img" src="https://a0.muscache.com/im/pictures/5ca54900-ce6e-4bb2-88f9-964e28c6e810.jpg?aki_policy=xx_large">
-          <small class="title-card">Titulo grande del motel</small><br>
-          <small  class="subtitle-card">7:00 am - 8:00 pm</small>
-        </div>
-      </ion-slide>
-    </ion-slides>
 
-  </ion-grid>    
-</ion-content>
+      <ion-slide class="slider-1 "  *ngFor="let service of services;
+      " >
+        <label>
+          <input type="checkbox"  (click)="selectMember(service)" [(ngModel)]="service.checked" value="small" >
+          <img class="border-radius-img" [src]="service.picture">
+          <small class="title-card">{{service.name}}</small><br>
+        </label>
+      </ion-slide>
+      
+    </ion-slides> -->
+
+  </ion-grid>  
+  </ion-content>
 
 <ion-footer>
   <ion-row>
 
     <ion-col>
       <ion-button class="btn-color" color="tertiary"  expand="full"  (click)="nextPage()" 
-      [disabled]="(hour == null || hour == '')   ||
-                  (day == null || day == '')
-                  ">Ver Disponibilidad</ion-button>
+      [disabled]="!check
+                  ">Siguiente</ion-button>
     </ion-col>
   </ion-row>
 </ion-footer>

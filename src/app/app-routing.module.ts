@@ -8,27 +8,15 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/landing',
+    redirectTo: '/index',
     pathMatch: 'full'
-  },
-  {
-    path: 'inicio',
-    loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
-  },
-  {
-    path: 'alert',
-    loadChildren: () => import('./pages/alert/alert.module').then( m => m.AlertPageModule)
-  },
-  {
-    path: 'action-sheet',
-    loadChildren: () => import('./pages/action-sheet/action-sheet.module').then( m => m.ActionSheetPageModule)
   },
   {
     path: 'available',
     loadChildren: () => import('./pages/available/available.module').then( m => m.AvailablePageModule)
   },
   {
-    path: 'show',
+    path: 'show/:id',
     loadChildren: () => import('./pages/show/show.module').then( m => m.ShowPageModule)
   },
   {
@@ -46,7 +34,11 @@ const routes: Routes = [
   {
     path: 'success',
     loadChildren: () => import('./pages/success/success.module').then( m => m.SuccessPageModule)
+  },  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
   },
+
 ];
 
 @NgModule({

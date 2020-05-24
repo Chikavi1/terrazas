@@ -4,19 +4,20 @@
      /*border-radius:0em 0em 1em 1em; */
     ">
     <ion-searchbar 
-                  placeholder="Buscar lugar o motel"
+                  placeholder="Buscar nombre de terraza"
                   animated
                   class="search-border"
-                  (ionChange)="buscarUsuario( $event )">
-
+                  (ionChange)="buscarCiudad($event)">
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
 <ion-content>
+<div *ngIf="show">
 
-  <h4 class="margin bold">Guadalajara</h4>
-      <ion-slides class="mini margin"  [options]="slideOpts">
-        <ion-slide class="slider-1 " (click)="showMotel()" *ngFor="let moteles of [1,1,1,1,1,1,1,1,1,1,1,1,1]" >
+
+  <h4 class="margin bold">{{ciudad}}</h4>
+      <!-- <ion-slides class="mini margin"  [options]="slideOpts">
+        <ion-slide class="slider-1 " (click)="showTerrace()" *ngFor="let moteles of [1,1,1,1,1,1,1,1,1,1,1,1,1]" >
           <div>
             <img class="border-radius-img" src="https://a0.muscache.com/im/pictures/5ca54900-ce6e-4bb2-88f9-964e28c6e810.jpg?aki_policy=xx_large">
             <small class="title-card">Titulo grande del motel</small><br>
@@ -25,37 +26,109 @@
         </ion-slide>
       </ion-slides>
 
-      <h4 class="margin bold">Sugerencias</h4>
+       <h4 class="margin bold">Sugerencias</h4> -->
 
-
-      <ion-slides class="thumbnail margin"  [options]="slideOptslarge">
-        <ion-slide class="slider-1 " (click)="showMotel()" *ngFor="let moteles of [1,1,1,1,1,1,1,1,1,1,1,1,1]">
-          <div>
-            <img class="border-radius-img" src="https://a0.muscache.com/im/pictures/5ca54900-ce6e-4bb2-88f9-964e28c6e810.jpg?aki_policy=xx_large">
-            <small class="title-card">Titulo grande del motel</small><br>
-            <small class="subtitle-card">6:00 am - 7:00 pm</small>
+    <ion-slides class="thumbnail margin"  [options]="slideOptslarge">
+        <ion-slide class="slider-1 "  (click)="showTerrace(terrace.id)" *ngFor="let terrace of terraces">
+          <div *ngIf="!terraces?.length > 0">
+              <h2>No hay por el momento</h2>
+          </div>
+          <div *ngIf="terraces?.length > 0"> 
+            <img class="border-radius-img" src="{{terrace.picture}}" style="min-height: 14em;">
+            <small class="title-card">{{terrace.name}}</small><br>
+            <small class="subtitle-card">Desde $ {{ terrace.price }}</small>
           </div>
         </ion-slide>
-        <ion-slide class="slider-2">
-          <h1>Slide 2</h1>
-        </ion-slide>
-        <ion-slide class="slider-3">
-          <h1>Slide 3</h1>
-        </ion-slide>
-      </ion-slides>
+      
+      </ion-slides> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
-      <ion-card class="border-radius-img" (click)="showMotel()" *ngFor="let motels of [1,1,1,1,1]">
+      <ion-card class="border-radius-img"  (click)="showTerrace()"  *ngFor="let terrace of terraces">
         <ion-row>
           <ion-col size="6">
-              <img style="margin: -.5em;" src="https://a0.muscache.com/im/pictures/5ca54900-ce6e-4bb2-88f9-964e28c6e810.jpg?aki_policy=xx_large" >
+              <img style="margin: -.5em;" src="{{terrace.picture}}" >
           </ion-col>
           <ion-col size="6">
-            <p>Titulo hasta aqui</p>
-            <p>6:00 Am - 8:00 Pm</p>
+            <p>{{terrace.name}}</p>
+            <p>Desde $ {{ terrace.price }}</p>
           </ion-col>
         </ion-row>
       </ion-card>
-   
+    </div>
 
+    <div *ngIf="!show" class="padding">
+      <h4>
+        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+      </h4>
+      <ion-grid>
+
+     
+      <ion-row>
+        <ion-col size="11">
+          <ion-skeleton-text rounded animated style="height:14em !important;border-radius: 1em;"></ion-skeleton-text>
+          <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text></p>
+          
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="1">
+          <ion-skeleton-text animated style="height:14em !important;border-radius: 1em;"></ion-skeleton-text><br>
+        </ion-col>
+      </ion-row>
+
+    <ion-card style="border-radius: 1em !important;">
+      <ion-row>
+        <ion-col size="6">
+          <ion-skeleton-text animated style="margin: -.5em;height: 9em;"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="6">
+          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    <ion-card style="border-radius: 1em !important;">
+      <ion-row>
+        <ion-col size="6">
+          <ion-skeleton-text animated style="margin: -.5em;height: 9em;"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="6">
+          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+    <ion-card style="border-radius: 1em !important;">
+      <ion-row>
+        <ion-col size="6">
+          <ion-skeleton-text animated style="margin: -.5em;height: 9em;"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="6">
+          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    </ion-grid>
+    
+    </div>
 </ion-content>

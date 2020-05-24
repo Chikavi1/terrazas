@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-index',
@@ -24,15 +25,34 @@ export class IndexPage implements OnInit {
       slideShadows: true,
     }
   }
+  terraces:any;
   
-  constructor(private navCtrl: NavController) { }
+
+show = false;
+ciudad;
+  constructor(private navCtrl: NavController,private dataService:DataService) {
+    this.ciudad = localStorage.getItem('ciudad');
+    setTimeout(()=>{
+      this.show = true;
+    },2500);
+
+  }
 
   ngOnInit() {
+    this.dataService.getTerraces().subscribe(
+      data  => {
+        this.terraces = data.data;
+      }
+    );
   }
 
 
-  showMotel(){
-    this.navCtrl.navigateForward('/show');
+  showTerrace(id){
+    console.log(id);
+    this.navCtrl.navigateForward(`/show/${id}`);
   }
 
+  buscarCiudad(event){
+    console.log(event.target.value);
+  }
 }
