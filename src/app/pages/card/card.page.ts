@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { isValid } from 'cc-validate';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-card',
@@ -39,7 +40,8 @@ export class CardPage implements OnInit {
   constructor(
     private stripe:Stripe,
     private navCtrl: NavController,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private dataService:DataService) {
     this.yearLimitIonDateTime = moment().year()+8;
     this.route.queryParams.subscribe(params =>{
       this.data = params;
@@ -90,16 +92,41 @@ export class CardPage implements OnInit {
  beforePage(){
   const extras: NavigationExtras = {
     queryParams:{
-      id: 1,
+      id: this.data.id,
       name: this.data.name,
-      price: this.data.price
+      price: this.data.price,
+      img: this.data.img
     }
   }
   this.navCtrl.navigateBack(['/available'],extras);
 }
 
  nextPage(){
-   this.navCtrl.navigateForward('/success');
+   this.pagar();
+  
+ }
+
+ pagar(){
+   console.log(this.data.day);
+   
+   if(localStorage.getItem('user_id')){
+    this.dataService.createReservation(
+      this.data.id,localStorage.getItem('user_id'),this.data.price,this.data.day)
+      .subscribe( resultado =>{
+      const extras: NavigationExtras = {
+        queryParams:{
+          invoice: resultado.message
+        }
+      }
+      if(resultado.message){
+          this.navCtrl.navigateForward('/success',extras);
+        }
+    });
+   }else{
+     alert("necesitas estar logeado prro");
+   }
+
+  
  }
 
  

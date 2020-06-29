@@ -1,21 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { NavigationExtras, Router } from '@angular/router';
-import { JsonPipe } from '@angular/common';
+import {Map,tileLayer,marker,icon} from 'leaflet';
+
 @Component({
   selector: 'app-show',
   templateUrl: './show.page.html',
   styleUrls: ['./show.page.scss'],
 })
 export class ShowPage implements OnInit {
-
   terraceId = null;
   terrace = [];
   services: any;
   reviews = [];
   images = [];
+  private map;
+  marker;
+  latitude;
+  longitude;
   dataParseNextPage;
   
   slideOpts = {
@@ -30,20 +34,33 @@ export class ShowPage implements OnInit {
    }
 
   ngOnInit() {
+    
       this.dataService.getTerrace(this.terraceId)
           .subscribe(data => {
             this.terrace = data.data;
             this.services = data.data.services.split(',');
             this.reviews = data.reviews;
             this.images = data.images;
-
-            this.dataParseNextPage = {id: data.data.id,name: data.data.name, price: data.data.price};
+            this.latitude = data.data.latitude;
+            this.longitude = data.data.longitude;
+            this.dataParseNextPage = 
+            {id: data.data.id,name: data.data.name, price: data.data.price,img:data.data.image};
           });
   }
+  ionViewDidEnter(){
+  this.showMap();
+}
+  showMap(){
+    this.map = new Map('myMap',{attributionControl: false}).setView([this.latitude, this.longitude], 13);
+    tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(this.map);
+    let iconMarker = icon({iconUrl: "https://image.flaticon.com/icons/png/512/235/235854.png",
+    iconSize: [30,30],});
+    this.marker = marker([this.latitude, this.longitude],{icon: iconMarker});
+    this.marker.addTo(this.map).bindPopup('Hey,jaja');
+  }
 
-  
   beforePage(){
-    this.navCtrl.navigateBack('/index');
+    this.navCtrl.navigateBack('/tabs/tab1');
   }
 
   NextPage(){
@@ -52,8 +69,8 @@ export class ShowPage implements OnInit {
       queryParams:{
         id: this.dataParseNextPage.id,
         name: this.dataParseNextPage.name,
-        price: this.dataParseNextPage.price
-
+        price: this.dataParseNextPage.price,
+        img: this.dataParseNextPage.img
       }
     }
     this.navCtrl.navigateForward(['/available'],extras);

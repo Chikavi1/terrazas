@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController,AlertController } from '@ionic/angular';
 import { DataService } from '../../services/data.service';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-index',
@@ -26,11 +27,16 @@ export class IndexPage implements OnInit {
     }
   }
   terraces:any;
-  
+  terracesthumbnail:any;
 
 show = false;
 ciudad;
-  constructor(private navCtrl: NavController,private dataService:DataService) {
+  constructor(
+    private navCtrl: NavController,
+    private geolocation: Geolocation,
+    private dataService:DataService,
+    public alertController: AlertController) {
+
     this.ciudad = localStorage.getItem('ciudad');
     setTimeout(()=>{
       this.show = true;
@@ -39,11 +45,38 @@ ciudad;
   }
 
   ngOnInit() {
-    this.dataService.getTerraces().subscribe(
-      data  => {
-        this.terraces = data.data;
+    this.dataService.getTerracesNormal().subscribe(
+      data => {
+        this.terracesthumbnail = data.data;
       }
-    );
+    )
+
+
+
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.dataService.getTerraces(resp.coords.latitude,resp.coords.longitude).subscribe(
+        data  => {
+          console.log(data);
+          this.terraces = data.data;
+        },
+        error => {
+        }
+      );
+    }).catch((error) => {
+       console.log('Error getting location', error);
+       console.log('necesitas de internet para que te funcione')
+     });
+  }
+
+  async presentAlert(data,status) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: status,
+      message: JSON.stringify(data),
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
 

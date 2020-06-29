@@ -10,10 +10,6 @@ import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 })
 export class AvailablePage {
   
-  slideOpts = {
-    slidesPerView: 1.7,
-    spaceBetween:10 
-  }
 
   day;
   check = false;
@@ -21,21 +17,62 @@ export class AvailablePage {
   terraceId;
 
   minimum_day;
+
+
   constructor( private navCtrl: NavController,
                private dataService: DataService,
                public toastController: ToastController,
                public router:Router,
                private route: ActivatedRoute) {
-               
+                 
+                this.minimum_day = new Date();               
+                let minimum_month;
+
+                function pad(s) { return (s < 10) ? '0' + s : s; }
+
+                this.minimum_day = this.minimum_day.getFullYear()+"-"+pad(this.minimum_day.getMonth()+1)+"-"+pad(this.minimum_day.getDate()+1);
+                console.log(this.minimum_day);
                 this.route.queryParams.subscribe(params =>{
                   this.data = params;
-                  this.terraceId = params.id;
                   console.log(this.data);
+                  this.terraceId = params.id;
                 });
    }
 
   beforePage(){
     this.navCtrl.navigateBack(['/show/'+this.terraceId]);
+  }
+
+  nextPage(){
+    const extras: NavigationExtras = {
+      queryParams:{
+        id: this.data.id,
+        img: this.data.img,
+        name: this.data.name,
+        price: this.data.price,
+        day: this.convertDate(this.day,'-')
+      }
+    }
+    this.navCtrl.navigateForward(['/card'],extras);
+}
+  
+  verificatedDate(day){
+    console.log(this.convertDate(this.day,'-'));
+    this.dataService.verifiedReserve(this.convertDate(this.day,'-'),this.data.id)
+    .subscribe(data => {
+      if(data.status == 'success'){
+          this.check = true;
+      }else{
+        this.check = false;
+      }
+      this.presentToast(data.message,data.status);
+    });
+  }
+
+  convertDate(inputFormat,join) {
+    function pad(s) { return (s < 10) ? '0' + s : s; }
+    var d = new Date(inputFormat)
+    return [d.getFullYear(), pad(d.getMonth()+1),pad(d.getDate()) ].join(join)
   }
 
   async presentToast(data,color) {
@@ -47,39 +84,5 @@ export class AvailablePage {
     toast.present();
   }
 
-  verificatedDate(){
-    this.dataService.verifiedReserve(this.convertDate(this.day))
-    .subscribe(data => {
-        this.presentToast(data.message,data.status);
-        console.log(data.message);
-    });
-  }
 
-  nextPage(){
-    const extras: NavigationExtras = {
-      queryParams:{
-        name: this.data.name,
-        price: this.data.price
-      }
-    }
-    this.navCtrl.navigateForward(['/card'],extras);
-}
-
-  convertDate(inputFormat) {
-    function pad(s) { return (s < 10) ? '0' + s : s; }
-    var d = new Date(inputFormat)
-    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('-')
-  }
-
-  ParseDataTimeToCardExpiration(day){
-    this.dataService.verifiedReserve(this.convertDate(this.day))
-    .subscribe(data => {
-      if(data.status == 'success'){
-          this.check = true;
-      }else{
-        this.check = false;
-      }
-      this.presentToast(data.message,data.status);
-    });
-  }
 }

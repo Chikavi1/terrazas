@@ -4,6 +4,13 @@
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
+    ion-tab-button.tab-selected {
+      ion-icon, ion-label {
+        color: #3668A6 !important;
+        --ion-color-base: var(--ion-color-secondary) !important;
+      }
+    }
+
   
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;

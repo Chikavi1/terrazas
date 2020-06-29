@@ -8,8 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/index',
-    pathMatch: 'full'
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
     path: 'available',
@@ -34,9 +33,22 @@ const routes: Routes = [
   {
     path: 'success',
     loadChildren: () => import('./pages/success/success.module').then( m => m.SuccessPageModule)
-  },  {
+  },
+  {
     path: 'profile',
     loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'reservation',
+    loadChildren: () => import('./pages/reservation/reservation.module').then( m => m.ReservationPageModule)
   },
 
 ];

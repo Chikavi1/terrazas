@@ -21,15 +21,13 @@ export class LandingPage implements OnInit {
 
   getLocation(){
     this.geolocation.getCurrentPosition().then((resp) => {
-      console.log(resp.coords);
-      this.locations.getLocation(resp.coords.latitude,resp.coords.longitude)
-      .subscribe(data => {
-        console.log(data.features);
-      });
+      localStorage.setItem('latitude',''+resp.coords.latitude);
+      localStorage.setItem('longitude',''+resp.coords.longitude);
+      this.Existlocation = true;
      }).catch((error) => {
        console.log('Error getting location', error);
      });
-    this.Existlocation = true;
+    
   }
 
   checkCity(e){

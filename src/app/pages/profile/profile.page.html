@@ -1,16 +1,66 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>profile</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-item>
-      <ion-icon slot="start" name="moon"></ion-icon>
-      <ion-label>Modo Oscuro</ion-label>
-      <ion-toggle slot="end" [ngModel]="darkMode" (ionChange)="cambio()"></ion-toggle>
-    </ion-item>
-  </ion-list>
-  
+
+<ion-content >
+  <div class="padding-2">
+
+    <img src="http://127.0.0.1:8000/{{user.image}}" width="140">
+    <h1 class="bold">{{ user.name }}</h1>
+    <p class="color-grey">{{ user.email }}</p>
+    <p class="color-green bold">ciudad</p><p>celular</p>
+    <h4>Mis Reservas</h4>
+    <div *ngIf="!reservas?.length > 0">
+      <p>No hay por el momento</p>
+  </div>
+    <ion-slides  [options]="slideOpts"  *ngIf="reservas?.length > 0">
+      <ion-slide class="slider-1 "  (click)="showTerrace(reserva.bussiness_id)" *ngFor="let reserva of reservas">
+   
+          <ion-card>
+            <ion-card-content>
+              <p style="color:green;">$ {{reserva.price}}</p>
+              <b>{{reserva.day}}</b>
+              <p>{{reserva.invoice}}</p>
+            </ion-card-content>
+          </ion-card>
+          
+      </ion-slide>
+    </ion-slides> 
+
+    <div style="height: 2px;width: 100%;margin:0;background-color: #eee;"></div>
+    <ion-list>
+      <ion-item button (click)="buttonClick()">
+        <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+        <ion-label>
+          Cambiar Contraseña
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon slot="start" name="moon"></ion-icon>
+        <ion-label>Modo Oscuro</ion-label>
+        <ion-toggle slot="end" [ngModel]="darkMode" (ionChange)="cambio()"></ion-toggle>
+      </ion-item>
+      <p style="margin-left: 1em;" class="color-grey">Legal</p>
+      <ion-item button (click)="buttonClick()">
+        <ion-icon slot="start" name="reader-outline"></ion-icon>
+        <ion-label>
+          Terminos de servicio
+        </ion-label>
+      </ion-item>
+
+      <ion-item button (click)="buttonClick()">
+        <ion-icon slot="start" name="finger-print-outline"></ion-icon>
+        <ion-label>
+          Politica de Privacidad
+        </ion-label>
+      </ion-item>
+      <ion-item button (click)="buttonClick()">
+        <ion-icon slot="start" name="information-circle-outline"></ion-icon>
+        <ion-label>
+          Ayuda
+        </ion-label>
+      </ion-item>
+
+      
+    </ion-list>
+    <ion-button  (click)="cerrar_sesion()" style="position: fixed;left: 0;bottom: 0;width: 100%;" color="danger" expand="full" >Cerrar Sesión</ion-button>
+</div>
 </ion-content>

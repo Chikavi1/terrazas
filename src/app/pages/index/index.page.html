@@ -4,7 +4,7 @@
      /*border-radius:0em 0em 1em 1em; */
     ">
     <ion-searchbar 
-                  placeholder="Buscar nombre de terraza"
+                  placeholder="Buscar terraza"
                   animated
                   class="search-border"
                   (ionChange)="buscarCiudad($event)">
@@ -15,7 +15,8 @@
 <div *ngIf="show">
 
 
-  <h4 class="margin bold">{{ciudad}}</h4>
+  <h4 class="margin bold">Cerca de ti</h4>
+
       <!-- <ion-slides class="mini margin"  [options]="slideOpts">
         <ion-slide class="slider-1 " (click)="showTerrace()" *ngFor="let moteles of [1,1,1,1,1,1,1,1,1,1,1,1,1]" >
           <div>
@@ -34,9 +35,10 @@
               <h2>No hay por el momento</h2>
           </div>
           <div *ngIf="terraces?.length > 0"> 
-            <img class="border-radius-img" src="{{terrace.picture}}" style="min-height: 14em;">
+            <img class="border-radius-img" src="https://terrazas.tk/{{terrace.image}}" style="min-height: 14em;">
             <small class="title-card">{{terrace.name}}</small><br>
             <small class="subtitle-card">Desde $ {{ terrace.price }}</small>
+            
           </div>
         </ion-slide>
       
@@ -61,14 +63,15 @@
 
 
   
-      <ion-card class="border-radius-img"  (click)="showTerrace()"  *ngFor="let terrace of terraces">
+      <ion-card class="border-radius-img"  (click)="showTerrace(terrace.id)"  *ngFor="let terrace of terracesthumbnail">
         <ion-row>
           <ion-col size="6">
-              <img style="margin: -.5em;" src="{{terrace.picture}}" >
+              <img style="margin: -.5em;" src="https://terrazas.tk/{{terrace.image}}" >
           </ion-col>
           <ion-col size="6">
             <p>{{terrace.name}}</p>
             <p>Desde $ {{ terrace.price }}</p>
+            <p>{{ terrace.distance}} KM</p>
           </ion-col>
         </ion-row>
       </ion-card>

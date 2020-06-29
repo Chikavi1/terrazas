@@ -4,16 +4,12 @@
       <ion-icon name="chevron-back-outline" style="color:#f8d100;"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <img src="https://images.unsplash.com/photo-1544984243-ec57ea16fe25?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" class="triangulo" style="margin-top: -5.5em;">
-
-
+  <img src="https://terrazas.tk/{{data.img}}" class="triangulo" style="margin-top: -5.5em;">
   <img src="../../../assets/booking.svg" alt="" style="display: block;
         margin: auto;
         width: 50%;" >
-
   <ion-grid>
     <h3 class="ion-text-center">{{ data.name}}</h3>
-    
     <ion-row>
       <ion-col size="12" >
         <ion-item >
@@ -23,9 +19,9 @@
               doneText="listo" 
               [(ngModel)]="day" 
               
-              (ionChange)="ParseDataTimeToCardExpiration(this.day)" 
-              min="2020-05-11" 
-              displayFormat="DDD.DD MMM, YYYY"
+              (ionChange)="verificatedDate(this.day)" 
+              min="{{minimum_day}}" 
+              displayFormat="DD MMM, YYYY"
               monthShortNames="Enero, Febreo, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
               [max]="yearLimitIonDateTime" cancelText="Cancelar" ></ion-datetime>
         </ion-item>
@@ -33,20 +29,6 @@
       </ion-col>
     </ion-row>
     <h1 class="ion-text-center" style="color:green;">$ {{ data.price }}</h1>
-    <!-- <p class="center-align padding">Haz click en la imagen para seleccionar.</p>
-    <ion-slides class="mini margin"  [options]="slideOpts">
-
-      <ion-slide class="slider-1 "  *ngFor="let service of services;
-      " >
-        <label>
-          <input type="checkbox"  (click)="selectMember(service)" [(ngModel)]="service.checked" value="small" >
-          <img class="border-radius-img" [src]="service.picture">
-          <small class="title-card">{{service.name}}</small><br>
-        </label>
-      </ion-slide>
-      
-    </ion-slides> -->
-
   </ion-grid>  
   </ion-content>
 

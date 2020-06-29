@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import {  ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-success',
@@ -9,8 +10,14 @@ import { NavController } from '@ionic/angular';
 export class SuccessPage implements OnInit {
   title = 'app';
   elementType = 'url';
-  createdCode = 'n12j3n12j31ias03n';
-  constructor(private navCtrl: NavController) { }
+  createdCode;
+  constructor(private navCtrl: NavController,private route:ActivatedRoute) {
+
+    this.route.queryParams.subscribe(params =>{
+      this.createdCode = params.invoice;
+      console.log(this.createdCode);
+    });
+   }
 
   ngOnInit() {
   }

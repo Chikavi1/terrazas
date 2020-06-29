@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/services/data.service';
+import { ToastController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -7,7 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilePage implements OnInit {
   darkMode: boolean =false;
-  constructor() { }
+  user:any = [];
+  reservas;
+
+  slideOpts = {
+    slidesPerView: 2.2,
+    spaceBetween:3 
+  }
+
+  constructor(private navCtrl: NavController,private dataService: DataService,private toastController:ToastController) { }
 
   cambio(){
     this.darkMode = !this.darkMode;
@@ -15,6 +25,46 @@ export class ProfilePage implements OnInit {
   }
   
   ngOnInit() {
+    let token = localStorage.getItem('token');
+    this.dataService.get_user(token).subscribe(data=>{
+     this.user = data;
+     console.log(data);
+     this.dataService.getReserves(this.user.id).subscribe(data=>{
+      this.reservas = data;
+      console.log(this.reservas);
+     });
+    });
+    console.log(this.user.id);
+
   }
+
+  cerrar_sesion(){
+    let token = localStorage.getItem('token');
+    this.dataService.logout(token).subscribe(data=>{
+      console.log(data);
+      if(data.message === 'Sesión Cerrada'){
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('name');
+        localStorage.removeItem('token');
+        this.presentToast("Sesión Cerrada","tertiary");
+        this.navCtrl.navigateBack(['/login']);
+      }
+     });
+  }
+
+  showTerrace(id){
+    console.log(id);
+    this.navCtrl.navigateForward(`/show/${id}`);
+  }
+  
+  async presentToast(data,color) {
+    const toast = await this.toastController.create({
+      message: data,
+      duration: 1100,
+      color: color
+    });
+    toast.present();
+  }
+
 
 }
