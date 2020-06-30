@@ -7,13 +7,27 @@ import { IonicModule } from '@ionic/angular';
 import { IndexPageRoutingModule } from './index-routing.module';
 
 import { IndexPage } from './index.page';
+import { LoginPage } from '../login/login.page';
+import { LoginPageModule } from '../login/login.module';
+import { ProfilePage } from '../profile/profile.page';
+import { ProfilePageModule } from '../profile/profile.module';
+import { RegisterPage } from '../register/register.page';
+import { RegisterPageModule } from '../register/register.module';
 
 @NgModule({
+  entryComponents: [
+    LoginPage,
+    ProfilePage,
+    RegisterPage
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    IndexPageRoutingModule
+    IndexPageRoutingModule,
+    LoginPageModule,
+    ProfilePageModule,
+    RegisterPageModule
   ],
   declarations: [IndexPage]
 })

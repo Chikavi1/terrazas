@@ -1,21 +1,11 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar color="tertiary" style="
-     padding:1em;
-     /*border-radius:0em 0em 1em 1em; */
-    ">
-    <ion-searchbar 
-                  placeholder="Buscar terraza"
-                  animated
-                  class="search-border"
-                  (ionChange)="buscarCiudad($event)">
-    </ion-searchbar>
+  <ion-toolbar >
+      <ion-icon (click)="openModal()" slot="end" name="person-circle-outline" style="zoom:2.0;margin: .5em;"></ion-icon>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-<div *ngIf="show">
-
-
-  <h4 class="margin bold">Cerca de ti</h4>
+<ion-content >
+<div *ngIf="show" >
+  <h4 class="bold margin" style="font-size: 1.7em;">Bienvenido</h4>
 
       <!-- <ion-slides class="mini margin"  [options]="slideOpts">
         <ion-slide class="slider-1 " (click)="showTerrace()" *ngFor="let moteles of [1,1,1,1,1,1,1,1,1,1,1,1,1]" >
@@ -47,23 +37,8 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
-      <ion-card class="border-radius-img"  (click)="showTerrace(terrace.id)"  *ngFor="let terrace of terracesthumbnail">
+      <ion-card class="border-radius-img" style="margin-top: 2em;"  (click)="showTerrace(terrace.id)"  *ngFor="let terrace of terracesthumbnail">
         <ion-row>
           <ion-col size="6">
               <img style="margin: -.5em;" src="https://terrazas.tk/{{terrace.image}}" >
@@ -77,7 +52,7 @@
       </ion-card>
     </div>
 
-    <div *ngIf="!show" class="padding">
+    <div *ngIf="!show" class="padding"  >
       <h4>
         <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
       </h4>
@@ -86,13 +61,10 @@
      
       <ion-row>
         <ion-col size="11">
-          <ion-skeleton-text rounded animated style="height:14em !important;border-radius: 1em;"></ion-skeleton-text>
-          <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text></p>
-          
-          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+          <ion-skeleton-text rounded animated style="height:16em !important;border-radius: 1em;"></ion-skeleton-text>
         </ion-col>
         <ion-col size="1">
-          <ion-skeleton-text animated style="height:14em !important;border-radius: 1em;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="height:16em !important;border-radius: 1em;"></ion-skeleton-text><br>
         </ion-col>
       </ion-row>
 

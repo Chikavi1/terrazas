@@ -1,14 +1,24 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Reservas
-    </ion-title>
-  </ion-toolbar>
+<ion-header class="ion-no-border">
+    <ion-toolbar >
+        <ion-title class="ion-text-center" color="tertiary" >
+          Terrazas
+        </ion-title>
+        <ion-icon slot="end" name="person-circle-outline" style="zoom:2.0;margin: .5em;"></ion-icon>
+        <ion-buttons slot="start" style="margin: .5em 1.5em;" >
+          <ion-buttons slot="start">
+          </ion-buttons>
+      </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-<p class="ion-text-center">Aun no tienes Reservaciones</p>
-
+<ion-searchbar 
+                  placeholder="Buscar terraza"
+                  animated
+                  class="searchbar-input"
+                  style="padding: 1em;border-radius: 50%;"
+                  (ionChange)="buscarCiudad($event)">
+    </ion-searchbar>
 </ion-content>
 
 

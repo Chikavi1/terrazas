@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
-
+  caca = false;
   constructor() {}
   
   

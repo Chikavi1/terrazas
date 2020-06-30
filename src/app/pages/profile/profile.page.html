@@ -1,9 +1,20 @@
-
+<ion-header class="ion-no-border">
+  <ion-toolbar >
+      <ion-title class="ion-text-center" color="tertiary" >
+        Perfil
+      </ion-title>
+      <ion-icon slot="end" name="close-outline" (click)="exit()" style="zoom:2.0;margin: .5em;"></ion-icon>
+      <ion-buttons slot="start" style="margin: .5em 1.5em;" >
+        <ion-buttons slot="start">
+        </ion-buttons>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content >
   <div class="padding-2">
 
-    <img src="http://127.0.0.1:8000/{{user.image}}" width="140">
+    <img src="https://terrazas.tk/{{user.image}}" width="100">
     <h1 class="bold">{{ user.name }}</h1>
     <p class="color-grey">{{ user.email }}</p>
     <p class="color-green bold">ciudad</p><p>celular</p>

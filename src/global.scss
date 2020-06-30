@@ -56,3 +56,12 @@
     --ion-tabbar-color: rgba(var(--ion-text-color-rgb), 0.4);    // suggested
     --ion-tabbar-color-selected: var(--ion-text-color);          // suggested
  }
+
+ ion-searchbar{
+  .searchbar-input-container{
+      .searchbar-input{
+          border-radius: .7em !important;
+          background: #32333738;
+      }
+  }
+}

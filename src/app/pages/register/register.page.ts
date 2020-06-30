@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -10,11 +11,16 @@ export class RegisterPage implements OnInit {
   email;
   password;
   password_confirm;
-  constructor() { }
+  constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {
   }
   register(){
     console.log(this.name,this.email,this.password,this.password_confirm);
   }
+
+  exit(){
+    this.modalCtrl.dismiss();
+  }
+
 }

@@ -1,7 +1,19 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar >
+      <ion-title class="ion-text-center" color="tertiary" >
+        Ingresa
+      </ion-title>
+      <ion-icon slot="end" name="close-outline" (click)="exit()" style="zoom:2.0;margin: .5em;"></ion-icon>
+      <ion-buttons slot="start" style="margin: .5em 1.5em;" >
+        <ion-buttons slot="start">
+        </ion-buttons>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-<img src="https://terrazas.tk/img/fun.svg" style="width: 100%;padding: 1em 4em;" alt="">
-<h2 style="color:#656867;font-size: 2em;padding: 0em 2em;">Ingresa</h2>
-<ion-row style="margin: 1em 3em;">
+<img src="https://terrazas.tk/img/fun.svg" style="width: 100%;padding: 1em 4em; margin-top: 2em;" alt="">
+<ion-row style="margin:1em;">
   <ion-col size="2">
     <p><ion-icon style="margin:.5em;" name="mail-outline"></ion-icon></p>
   </ion-col>
@@ -13,7 +25,7 @@
   </ion-col>
 </ion-row>
 
-<ion-row style="margin:  1em 3em;">
+<ion-row style="margin:1em;">
   <ion-col size="2">
     <p><ion-icon style="margin:.5em;" name="lock-open-outline"></ion-icon></p>
   </ion-col>
@@ -33,5 +45,5 @@ left: 0;
 bottom: 0;
 width: 100%;
 text-align: center;
-font-weight: bold;">¿No tienes una cuenta?<span style="color:cornflowerblue;" RouterLink="/register">Registrate</span></p>
+font-weight: bold;">¿No tienes una cuenta?<span style="color:cornflowerblue;" (click)="goToRegister()"> Registrate</span></p>
 </ion-content>

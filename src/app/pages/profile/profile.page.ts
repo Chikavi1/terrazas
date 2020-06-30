@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
-import { ToastController, NavController } from '@ionic/angular';
+import { ToastController, NavController, ModalController } from '@ionic/angular';
+import { LoginPage } from '../login/login.page';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +18,10 @@ export class ProfilePage implements OnInit {
     spaceBetween:3 
   }
 
-  constructor(private navCtrl: NavController,private dataService: DataService,private toastController:ToastController) { }
+  constructor(private navCtrl: NavController,
+    private dataService: DataService,
+    private toastController:ToastController,
+    private modalCtrl: ModalController) { }
 
   cambio(){
     this.darkMode = !this.darkMode;
@@ -47,7 +51,10 @@ export class ProfilePage implements OnInit {
         localStorage.removeItem('name');
         localStorage.removeItem('token');
         this.presentToast("Sesión Cerrada","tertiary");
-        this.navCtrl.navigateBack(['/login']);
+        this.exit();
+
+        this.goToLogin();
+
       }
      });
   }
@@ -65,6 +72,25 @@ export class ProfilePage implements OnInit {
     });
     toast.present();
   }
+  goToLogin(){
+    this.modalCtrl.dismiss().then( () => {
+      this.presentModal(LoginPage);
 
+    });
+  }
+
+  async presentModal(component) {
+    const modal = await this.modalCtrl.create({
+      component: component,
+      cssClass: 'my-custom-class',
+      showBackdrop: false,
+      presentingElement: await this.modalCtrl.getTop()
+    });
+    return await modal.present();
+  }
+
+  exit(){
+    this.modalCtrl.dismiss();
+  }
 
 }

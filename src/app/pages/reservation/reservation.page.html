@@ -1,9 +1,35 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>reservation</ion-title>
+<ion-header class="ion-no-border">
+  <ion-toolbar >
+      <ion-title class="ion-text-center" color="tertiary" >
+        Mis Reservas
+      </ion-title>
+      <ion-icon (click)="openModal()" slot="end" name="person-circle-outline" style="zoom:2.0;margin: .5em;"></ion-icon>
+      <ion-buttons slot="start" style="margin: .5em 1.5em;" >
+        <ion-buttons slot="start">
+        </ion-buttons>
+    </ion-buttons>
   </ion-toolbar>
+  
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true">
+  <div *ngIf="isAuth">
+    
+    <div *ngIf="reservations">
+      <img src="../assets/no-data.svg" style="width: 60%;padding: 2em;margin-left: 4em; margin-top: 1em;" alt="">
+
+      <p class="ion-text-center" >¡Hola {{ name }}, Aun no tienes Reservaciones!</p>
+    </div>
+
+  </div>
+  <div *ngIf="!isAuth"  style="padding: 1em;">
+      <img src="../assets/login.svg" style="width: 60%;padding: 2em;margin-left: 2em; margin-top: 1em;" alt="">
+
+    <h2>Necesitas conectarte a tu cuenta</h2>
+    <p>Haz click en el icono <ion-icon  name="person-circle-outline" style="zoom:2.0;"></ion-icon> para poder ingresar a tu cuenta.</p>
+  </div>
+
 
 </ion-content>
+
+

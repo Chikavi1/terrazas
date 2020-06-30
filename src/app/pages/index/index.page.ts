@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController,AlertController } from '@ionic/angular';
+import { NavController,AlertController, ModalController } from '@ionic/angular';
 import { DataService } from '../../services/data.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { LoginPage } from '../login/login.page';
+import { ProfilePage } from '../profile/profile.page';
 
 @Component({
   selector: 'app-index',
@@ -35,7 +37,8 @@ ciudad;
     private navCtrl: NavController,
     private geolocation: Geolocation,
     private dataService:DataService,
-    public alertController: AlertController) {
+    public alertController: AlertController,
+    private modalController: ModalController) {
 
     this.ciudad = localStorage.getItem('ciudad');
     setTimeout(()=>{
@@ -87,5 +90,21 @@ ciudad;
 
   buscarCiudad(event){
     console.log(event.target.value);
+  }
+
+  openModal(){
+    if(localStorage.getItem('token')){
+      this.presentModal(ProfilePage);
+    }else{
+      this.presentModal(LoginPage);
+    }
+  }
+
+  async presentModal(component) {
+    const modal = await this.modalController.create({
+      component: component,
+      cssClass: 'my-custom-class'
+    });
+    return await modal.present();
   }
 }
