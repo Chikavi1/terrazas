@@ -17,12 +17,12 @@
     <img src="https://terrazas.tk/{{user.image}}" width="100">
     <h1 class="bold">{{ user.name }}</h1>
     <p class="color-grey">{{ user.email }}</p>
-    <p class="color-green bold">ciudad</p><p>celular</p>
-    <h4>Mis Reservas</h4>
+    <p class="color-green bold">{{ user.city }}</p><p>{{ user.cellphone }}</p>
+    <!-- <h4>Mis Reservas</h4>
     <div *ngIf="!reservas?.length > 0">
       <p>No hay por el momento</p>
-  </div>
-    <ion-slides  [options]="slideOpts"  *ngIf="reservas?.length > 0">
+  </div> -->
+    <!-- <ion-slides  [options]="slideOpts"  *ngIf="reservas?.length > 0">
       <ion-slide class="slider-1 "  (click)="showTerrace(reserva.bussiness_id)" *ngFor="let reserva of reservas">
    
           <ion-card>
@@ -34,7 +34,7 @@
           </ion-card>
           
       </ion-slide>
-    </ion-slides> 
+    </ion-slides>  -->
 
     <div style="height: 2px;width: 100%;margin:0;background-color: #eee;"></div>
     <ion-list>

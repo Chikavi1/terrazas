@@ -11,7 +11,7 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getTerraces(latitude,longitude):any{
-    return this.http.get(this.PRODUCTION_URL+'/api/v1/search?latitud='+latitude+'&longitud='+longitude);
+    return this.http.get(this.PRODUCTION_URL+'/api/v1/searchByLatLng?latitud='+latitude+'&longitud='+longitude);
   }
   getTerracesNormal():any{
     return this.http.get(this.PRODUCTION_URL+'/api/v1/getBussinesses/');
@@ -31,6 +31,14 @@ export class DataService {
   createReservation(bussiness_id,user_id,price,day):any{
     return this.http.get(this.PRODUCTION_URL+'/api/v1/createReservation?bussiness_id='+bussiness_id+'&user_id='+user_id+'&price='+price+'&day='+day);
   }
+
+  search(query):any{
+    return this.http.get(this.DEVELOPMENT_URL+'/api/v1/search?q='+query);
+  }
+
+
+
+
   login(email,password):any{
     return this.http.post(this.PRODUCTION_URL+'/api/auth/login',{
       "email": email,

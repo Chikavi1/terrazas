@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border">
     <ion-toolbar >
         <ion-title class="ion-text-center" color="tertiary" >
-          Terrazas
+          terraices
         </ion-title>
         <ion-icon slot="end" name="person-circle-outline" style="zoom:2.0;margin: .5em;"></ion-icon>
         <ion-buttons slot="start" style="margin: .5em 1.5em;" >
@@ -17,8 +17,27 @@
                   animated
                   class="searchbar-input"
                   style="padding: 1em;border-radius: 50%;"
-                  (ionChange)="buscarCiudad($event)">
+                  (ionChange)="buscarCiudad($event)"
+                  [(ngModel)]="myInput"
+                  (ionClear)="onCancel($event)"
+                  >
     </ion-searchbar>
+    <ion-card  *ngFor="let terrace of terraces">
+      <ion-row>
+        <ion-col size="6">
+            <img style="margin: -.5em;" src="https://terrazas.tk/{{terrace.image}}" >
+        </ion-col>
+        <ion-col size="6">
+          <p>{{terrace.name}}</p>
+          <p>Desde $ {{ terrace.price }}</p>
+          <p>{{ terrace.distance}} KM</p>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    
+
+    
 </ion-content>
 
 
