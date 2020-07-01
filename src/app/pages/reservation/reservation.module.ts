@@ -14,11 +14,14 @@ import { ProfilePageModule } from '../profile/profile.module';
 import { RegisterPage } from '../register/register.page';
 import { RegisterPageModule } from '../register/register.module';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+import { ReviewsPage } from '../reviews/reviews.page';
+import { ReviewsPageModule } from '../reviews/reviews.module';
 @NgModule({
   entryComponents: [
     LoginPage,
     ProfilePage,
-    RegisterPage
+    RegisterPage,
+    ReviewsPage
   ],
   imports: [
     CommonModule,
@@ -28,6 +31,7 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
     LoginPageModule,
     ProfilePageModule,
     RegisterPageModule,
+    ReviewsPageModule,
     NgxQRCodeModule
   ],
   declarations: [ReservationPage]

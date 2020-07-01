@@ -1,0 +1,32 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar >
+      <ion-title class="ion-text-center" color="tertiary" >
+        Reseña
+      </ion-title>
+      <ion-icon slot="end" name="close-outline" (click)="exit()" style="zoom:2.0;margin: .5em;"></ion-icon>
+      <ion-buttons slot="start" style="margin: .5em 1.5em;" >
+        <ion-buttons slot="start">
+        </ion-buttons>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<p style="margin: 2em;">Escribe una reseña.</p>
+
+<div class="center">
+    <bar-rating   [(rate)]="rate" [max]="5" [theme]="'stars'" [showText]="true"
+    [titles]="['Pesimo','Malo', 'Regular','Bueno', 'Excelente']" required></bar-rating>
+
+ 
+</div>
+<div style="margin:2em;">
+
+<ion-item>
+  <ion-textarea rows="6" cols="20" placeholder="Cuentamos como fue tu experiencia..."></ion-textarea>
+</ion-item>
+
+<ion-button style="margin-top: 2em;" expand="full" shape="round" >Enviar</ion-button>
+</div>
+
+</ion-content>

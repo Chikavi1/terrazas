@@ -49,7 +49,11 @@ const routes: Routes = [
   {
     path: 'reservation',
     loadChildren: () => import('./pages/reservation/reservation.module').then( m => m.ReservationPageModule)
+  },  {
+    path: 'reviews',
+    loadChildren: () => import('./pages/reviews/reviews.module').then( m => m.ReviewsPageModule)
   },
+
 
 ];
 

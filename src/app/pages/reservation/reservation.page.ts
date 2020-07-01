@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { ProfilePage } from '../profile/profile.page';
 import { LoginPage } from '../login/login.page';
 import * as moment from 'moment';
+import { ReviewsPage } from '../reviews/reviews.page';
 
 @Component({
   selector: 'app-reservation',
@@ -23,8 +24,9 @@ export class ReservationPage{
   }
 
   constructor(private dataService:DataService,
-              private modalController:ModalController) { 
-                moment.locale('es');
+              private modalController:ModalController,
+              private navCtrl: NavController) { 
+               
                 var dateTime = moment( '2016-06-30');
                 var full = dateTime.format('dddd D, MMMM YYYY');
                 console.log(full);
@@ -39,24 +41,31 @@ export class ReservationPage{
         this.reservations = data;
        
         this.reservations.map(function(reservation){
+          moment.locale('es');
           var dateTime = moment(reservation.day);
           reservation.day = dateTime.format('dddd, D MMMM YYYY');
           return reservation;
         });
 
-        console.log(this.reservations);
        });
     }else{
       this.isAuth = false;
     }
   }
 
+  openReview(){
+    this.presentModal(ReviewsPage);
+  }
   openModal(){
     if(localStorage.getItem('token')){
       this.presentModal(ProfilePage);
     }else{
       this.presentModal(LoginPage);
     }
+  }
+
+  showTerrace(id){
+    this.navCtrl.navigateForward(`/show/${id}`);
   }
 
   async presentModal(component) {
@@ -70,7 +79,12 @@ export class ReservationPage{
         this.name = localStorage.getItem("name");
         this.dataService.getReserves(localStorage.getItem("user_id")).subscribe(data=>{
           this.reservations = data;
-          console.log(this.reservations);
+          this.reservations.map(function(reservation){
+            moment.locale('es');
+            var dateTime = moment(reservation.day);
+            reservation.day = dateTime.format('dddd, D MMMM YYYY');
+            return reservation;
+          });
          });
       }else{
         this.isAuth = false;
