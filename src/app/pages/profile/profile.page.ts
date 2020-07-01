@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { ToastController, NavController, ModalController } from '@ionic/angular';
 import { LoginPage } from '../login/login.page';
-
+import { InAppBrowser,InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -21,11 +21,21 @@ export class ProfilePage implements OnInit {
   constructor(private navCtrl: NavController,
     private dataService: DataService,
     private toastController:ToastController,
-    private modalCtrl: ModalController) { }
+    private modalCtrl: ModalController,
+    private iab: InAppBrowser) { }
 
   cambio(){
     this.darkMode = !this.darkMode;
       document.body.classList.toggle('dark')
+  }
+
+  buttonClick(pagina){
+    let options : InAppBrowserOptions = {
+      zoom: 'no',
+      hideurlbar: 'yes', // hide the url toolbar
+      hidenavigationbuttons: 'yes', 
+    }
+    this.iab.create(pagina,'_self',options);
   }
   
   ngOnInit() {

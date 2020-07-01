@@ -13,6 +13,7 @@ import { ProfilePage } from '../profile/profile.page';
 import { ProfilePageModule } from '../profile/profile.module';
 import { RegisterPage } from '../register/register.page';
 import { RegisterPageModule } from '../register/register.module';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 @NgModule({
   entryComponents: [
     LoginPage,
@@ -26,7 +27,8 @@ import { RegisterPageModule } from '../register/register.module';
     ReservationPageRoutingModule,
     LoginPageModule,
     ProfilePageModule,
-    RegisterPageModule
+    RegisterPageModule,
+    NgxQRCodeModule
   ],
   declarations: [ReservationPage]
 })

@@ -14,12 +14,37 @@
 
 <ion-content [fullscreen]="true">
   <div *ngIf="isAuth">
-    
-    <div *ngIf="reservations">
-      <img src="../assets/no-data.svg" style="width: 60%;padding: 2em;margin-left: 4em; margin-top: 1em;" alt="">
 
+    <div *ngIf="!reservations?.length > 0">
+      <img src="../assets/no-data.svg" style="width: 60%;padding: 2em;margin-left: 4em; margin-top: 1em;" alt="">
       <p class="ion-text-center" >¡Hola {{ name }}, Aun no tienes Reservaciones!</p>
     </div>
+
+    <p *ngIf="reservations?.length > 1" style="padding: 0em 2em;">Desliza a la derecha para ver tus otras reservaciones.</p>
+
+    <ion-slides  [options]="slideOpts"  *ngIf="reservations?.length > 0">
+      <ion-slide class="slider-1 "   *ngFor="let reservation of reservations">
+        <ion-card  style="border-radius: 1em;"> 
+          <ion-card-header>
+                <ngx-qrcode   style="zoom:2;" class="center" [value]="reservation.invoice"></ngx-qrcode>
+                <h2>{{ reservation.invoice }}</h2>
+                <h3 style="color:green;font-weight: bold;">$ {{ reservation.price }} MXN.</h3>
+                <p>{{ reservation.day }}</p>
+                <p>{{ today }}</p>
+  
+                <ion-row>
+                  <ion-col>
+                    <ion-button shape="round">Calificar</ion-button>
+                  </ion-col>
+                  <ion-col>
+                    <ion-button shape="round" fill="outline" (click)="showTerrace(reservation.bussiness_id)">Terraza</ion-button>
+                  </ion-col>
+                </ion-row>
+          </ion-card-header>
+        </ion-card>
+          
+      </ion-slide>
+    </ion-slides> 
 
   </div>
   <div *ngIf="!isAuth"  style="padding: 1em;">

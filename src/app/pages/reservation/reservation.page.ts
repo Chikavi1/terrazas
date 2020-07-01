@@ -3,6 +3,7 @@ import { DataService } from 'src/app/services/data.service';
 import { ModalController } from '@ionic/angular';
 import { ProfilePage } from '../profile/profile.page';
 import { LoginPage } from '../login/login.page';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-reservation',
@@ -13,11 +14,20 @@ export class ReservationPage{
   isAuth:boolean;
   reservations;
   name;
+  today;
+
+  slideOpts = {
+    slidesPerView: 1,
+    spaceBetween:3,
+    pager: true
+  }
 
   constructor(private dataService:DataService,
               private modalController:ModalController) { 
-   
-
+                moment.locale('es');
+                var dateTime = moment( '2016-06-30');
+                var full = dateTime.format('dddd D, MMMM YYYY');
+                console.log(full);
   }
 
   ionViewWillEnter () {
@@ -27,6 +37,13 @@ export class ReservationPage{
       this.name = localStorage.getItem("name");
       this.dataService.getReserves(localStorage.getItem("user_id")).subscribe(data=>{
         this.reservations = data;
+       
+        this.reservations.map(function(reservation){
+          var dateTime = moment(reservation.day);
+          reservation.day = dateTime.format('dddd, D MMMM YYYY');
+          return reservation;
+        });
+
         console.log(this.reservations);
        });
     }else{
